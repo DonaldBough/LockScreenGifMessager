@@ -21,7 +21,7 @@ public class LockscreenIntentReceiver extends BroadcastReceiver {
         else if (intent.getAction().equals(Intent.ACTION_USER_PRESENT)) {
             Log.d("debug", "got present");
             if (LockScreenActivity.instance != null) {
-                LockScreenActivity.instance.replaceContentView();
+                LockScreenActivity.instance.replaceContentView("home");
             }
         }
     }
@@ -32,5 +32,8 @@ public class LockscreenIntentReceiver extends BroadcastReceiver {
         mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         Log.d("debug", "restarted lockscreen");
         context.startActivity(mIntent);
+        if (LockScreenActivity.instance != null) {
+            LockScreenActivity.instance.replaceContentView("lock");
+        }
     }
 }

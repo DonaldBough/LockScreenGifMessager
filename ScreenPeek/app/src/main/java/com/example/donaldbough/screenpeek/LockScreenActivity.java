@@ -1,27 +1,22 @@
 package com.example.donaldbough.screenpeek;
 
 import android.app.Activity;
-        import android.app.Application;
-        import android.app.KeyguardManager;
-import android.content.Context;
+import android.app.KeyguardManager;
 import android.content.Intent;
         import android.os.Bundle;
-        import android.telephony.PhoneStateListener;
-        import android.telephony.TelephonyManager;
-        import android.util.Log;
+import android.util.Log;
         import android.view.KeyEvent;
         import android.view.View;
         import android.view.WindowManager;
-        import android.view.WindowManager.LayoutParams;
-        import android.widget.Button;
-        import com.example.donaldbough.screenpeek.utils.LockscreenService;
-        import com.example.donaldbough.screenpeek.utils.LockscreenUtils;
+
+import com.example.donaldbough.screenpeek.utils.LockscreenUtils;
 
 public class LockScreenActivity extends Activity implements
         LockscreenUtils.OnLockStatusChangedListener {
     // Member variables
     private LockscreenUtils mLockscreenUtils;
     public static LockScreenActivity instance = null;
+    public static boolean homeActivityIsShowing;
 
     // Set appropriate flags to make the screen appear over the keyguard
     @Override
@@ -65,9 +60,11 @@ public class LockScreenActivity extends Activity implements
         }
     }
 
-    public void replaceContentView() {
-        Log.d("debug", "tried to replace content view");
-        setContentView(R.layout.activity_home);
+    public void replaceContentView(String layout) {
+        if (layout.equals("home"))
+            setContentView(R.layout.activity_home);
+        else if (layout.equals("lock"))
+            setContentView(R.layout.activity_lockscreen);
     }
 
     @Override
